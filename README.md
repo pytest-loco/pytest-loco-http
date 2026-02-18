@@ -8,6 +8,15 @@ The `pytest-loco-http` extension provides first-class HTTP support for the
 requests using managed sessions and return normalized, structured
 response objects.
 
+## Install
+
+```sh
+> pip install pytest-loco-http
+```
+
+Requirements:
+- Python 3.13 or higher
+
 ## Requests
 
 Each HTTP method is exposed as an actor:
