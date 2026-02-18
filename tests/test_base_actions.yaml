@@ -1,0 +1,90 @@
+---
+spec: case
+title: Making requests
+vars:
+  baseUrl: https://httpbin.org
+
+---
+spec: step
+action: http.get
+title: Test GET
+url: !urljoin baseUrl /get
+timeout: 30
+headers:
+  accept: application/json
+params:
+  test: 'true'
+expect:
+  - title: Status is 200
+    value: !var result.status
+    match: 200
+  - title: Response contains echo message
+    value: !var result.text
+    regex: httpbin\.org/get\?test=true
+    multiline: yes
+
+---
+spec: step
+action: http.post
+title: Test not allowed method
+url: !urljoin baseUrl /get
+expect:
+  - title: Status is 405
+    value: !var result.status
+    match: 405
+
+---
+spec: step
+action: http.post
+title: Test binary files
+url: !urljoin baseUrl /post
+files:
+  - name: test
+    content: !binaryHex |
+      48 65 6C 6C 6F 2C 20
+      57 6F 72 6C 64 21
+expect:
+  - title: Status is 200
+    value: !var result.status
+    match: 200
+  - title: Files are sent
+    value: !var result.text
+    regex: '"files":\s*{\s*"test":\s*"Hello, World!"\s*}'
+    multiline: yes
+
+---
+spec: step
+action: http.post
+title: Test text files
+url: !urljoin baseUrl /post
+files:
+  - name: test
+    content: Hello, World!
+expect:
+  - title: Status is 200
+    value: !var result.status
+    match: 200
+  - title: Files are sent
+    value: !var result.text
+    regex: '"files":\s*{\s*"test":\s*"Hello, World!"\s*}'
+    multiline: yes
+
+---
+spec: step
+action: http.get
+title: Test cookies
+url: !urljoin baseUrl /cookies/set
+params:
+  freeform: test
+export:
+  testCookie: !var result.history.0.cookies.0
+expect:
+  - title: Status is 200
+    value: !var result.status
+    match: 200
+  - title: Cookie name is expected
+    value: !var testCookie.name
+    match: freeform
+  - title: Cookie value is expected
+    value: !secret testCookie.value
+    match: test
