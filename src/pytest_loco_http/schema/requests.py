@@ -31,6 +31,7 @@ class RequestModel(PluginModel):
     )
 
     url_string: Url = Field(
+        serialization_alias='urlString',
         title='Request URL',
         description='The full request URL as a validated HttpUrl.',
     )

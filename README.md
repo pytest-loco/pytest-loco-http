@@ -123,8 +123,8 @@ The raw body is preserved in the response model as:
 Multipart file uploads are supported via the files field.
 
 Each file entry defines:
-- `name` — form field name
-- `content` — string or bytes
+- `name` - form field name
+- `content` - string or bytes
 - `filename` (optional)
 - `mimetype` (optional)
 
@@ -172,14 +172,14 @@ This instruction is useful when endpoints depend on previously resolved
 values (e.g. environment-specific base URLs, dynamically returned URLs,
 or configuration variables).
 
-Syntax:
+Syntax:`
 
 ```
 !urljoin <variable> <postfix>
 ```
 
-- `<variable>` — name of a context variable containing a base URL;
-- `<postfix>` — relative path segment to append to the base URL.
+- `<variable>` - name of a context variable containing a base URL;
+- `<postfix>` - relative path segment to append to the base URL.
 
 Both parts must be separated by whitespace.
 

@@ -10,21 +10,16 @@ from urllib.parse import urljoin
 
 import yaml
 
+from pytest_loco.builtins.lookups import VariableLookup
 from pytest_loco.errors import DSLRuntimeError, DSLSchemaError
 from pytest_loco.extensions import Instruction
 
 if TYPE_CHECKING:
-    from collections.abc import Mapping
-
-if TYPE_CHECKING:
-    from yaml import BaseLoader
-    from yaml.nodes import ScalarNode
-
-if TYPE_CHECKING:
-    from pytest_loco.values import Deferred, RuntimeValue
+    from pytest_loco.schema import YAMLLoader, YAMLNode
+    from pytest_loco.values import Deferred, RuntimeValue, Value
 
 
-def urljoin_constructor(loader: 'BaseLoader', node: 'ScalarNode') -> 'Deferred[RuntimeValue]':
+def urljoin_constructor(loader: 'YAMLLoader', node: 'YAMLNode') -> 'Deferred[RuntimeValue]':
     """Create a deferred URL join resolver from YAML node.
 
     Parses a scalar value and returns a resolver function that
@@ -43,7 +38,8 @@ def urljoin_constructor(loader: 'BaseLoader', node: 'ScalarNode') -> 'Deferred[R
             match the expected format.
     """
     try:
-        variable, postfix = loader.construct_scalar(node).split(' ', 1)
+        path, postfix = loader.construct_scalar(node).split(' ', 1)
+        lookup = VariableLookup(path)
 
     except yaml.MarkedYAMLError as base:
         raise DSLSchemaError.from_yaml_error(base) from base
@@ -51,9 +47,9 @@ def urljoin_constructor(loader: 'BaseLoader', node: 'ScalarNode') -> 'Deferred[R
     except Exception as base:
         raise DSLSchemaError.from_yaml_node('Invalid variable', node) from base
 
-    def resolver(context: 'Mapping[str, RuntimeValue]') -> 'RuntimeValue':
+    def resolver(context: dict[str, 'Value']) -> 'RuntimeValue':
         """Wrapper for join path to value."""
-        value = context.get(variable)
+        value = lookup(context)
         if not value:
             return None
 

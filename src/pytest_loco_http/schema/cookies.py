@@ -82,6 +82,7 @@ class CookieModel(PluginModel):
 
     comment_url: str | None = Field(
         default=None,
+        serialization_alias='commentUrl',
         title='Comment URL',
         description='URL providing additional information about the cookie.',
     )

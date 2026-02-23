@@ -79,13 +79,15 @@ request_parameters = Schema({
         description='Target URL for the HTTP request.',
     ),
     'headers': Attribute(
-        base=dict[str, str],
+        base=dict[str, Deferred[Value]],
+        deferred=False,
         title='Headers',
         description='Optional HTTP headers to include in the request.',
     ),
     'params': Attribute(
         base=dict[str, Deferred[Value]],
         aliases=['query', 'queryParams'],
+        deferred=False,
         title='Query parameters',
         description='URL query parameters appended to the request.',
     ),
@@ -102,6 +104,7 @@ request_parameters = Schema({
     'files': Attribute(
         base=FilesModel,
         default=None,
+        deferred=False,
         title='Multipart files',
         description='Optional multipart file attachments.',
     ),
@@ -111,7 +114,7 @@ request_parameters = Schema({
         default=True,
         title='SSL verification',
         description=(
-            'SSL verification setting. '
+            'SSL verification setting.\n'
             'Can be a boolean or a path to a CA bundle file.'
         ),
     ),
