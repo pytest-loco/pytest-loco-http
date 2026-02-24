@@ -1541,7 +1541,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__10": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.put",
@@ -1830,7 +1829,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__11": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.trace",
@@ -2166,7 +2164,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__3": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.connect",
@@ -2455,7 +2452,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__4": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.delete",
@@ -2744,7 +2740,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__5": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.get",
@@ -3033,7 +3028,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__6": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.head",
@@ -3322,7 +3316,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__7": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.options",
@@ -3611,7 +3604,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__8": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.patch",
@@ -3900,7 +3892,6 @@
         },
         "pytest_loco__core__builder__ModelMetaclass__9": {
             "additionalProperties": false,
-            "oneOf": [],
             "properties": {
                 "action": {
                     "const": "http.post",
